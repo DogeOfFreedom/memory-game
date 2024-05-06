@@ -1,68 +1,101 @@
+@font-face {
+  font-family: pokemon_game;
+  src: url("./PKMN RBYGSC.ttf");
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: pokemon_game;
+  color: rgb(255, 255, 255);
+  background-color: rgb(26, 30, 65);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.page-title {
+  font-size: 40px;
 }
-a:hover {
-  color: #535bf2;
+
+.title {
+  letter-spacing: 2px;
 }
 
 body {
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
+}
+
+.typeSelectorContainer {
+  margin-top: 50px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.typeSelectorContainer button {
+  font-family: pokemon_game;
+  min-width: 300px;
+  min-height: 50px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 5px 7px;
+  border-radius: 50px;
+  border: 3px solid rgba(178, 180, 186, 0.2);
+  background-color: rgb(33, 37, 70);
+  color: rgb(255, 253, 240);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.typeSelectorContainer button:hover {
+  border: 3px solid rgba(178, 180, 186, 0.8);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.typeSelectorContainer button img {
+  width: auto;
+  height: 40px;
+}
+
+.hide {
+  display: none;
+}
+
+.loading-spinner {
+  --len: 100px;
+  
+  position: absolute;
+  left: calc(50% - calc(var(--len)/2));
+  top: 50%;
+  width: var(--len);
+  height: var(--len);
+  border: 3px solid grey;
+  border-top: 3px solid rgb(14, 163, 255);
+  border-radius: calc(var(--len));
+  animation: load-spinner 1s infinite linear;
+}
+
+@keyframes load-spinner {
+  from {
+    transform: rotate(0deg);
   }
-  a:hover {
-    color: #747bff;
+  to {
+    transform: rotate(360deg);
   }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px;
+  gap: 20px;
+}
+
+.card {
+  background-color: rgb(33, 37, 70);
+  border-radius: 25px;
+  max-width: 200px;
+}
+
+.card img {
+  width: auto;
+  height: 200px;
 }
