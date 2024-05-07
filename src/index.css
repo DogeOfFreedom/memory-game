@@ -1,6 +1,7 @@
 @font-face {
   font-family: pokemon_game;
-  src: url("./PKMN RBYGSC.ttf");
+  /* src: url("./PKMN_RBYGSC.ttf"); */
+  src: url("/public/Pokemon_Classic.ttf")
 }
 
 :root {
