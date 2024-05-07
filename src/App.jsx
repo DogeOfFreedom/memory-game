@@ -1,5 +1,5 @@
 import Header from "./Header";
-import NationSelect from "./TypeSelect";
+import TypeSelect from "./TypeSelect";
 import "./App.css";
 import { useState } from "react";
 import MemoryGame from "./MemoryGame";
@@ -7,15 +7,18 @@ import MemoryGame from "./MemoryGame";
 function App() {
   const [type, setType] = useState("");
 
+  const reset = () => {
+    setType("");
+  };
+
   return (
     <>
       <Header />
       {type === "" ? (
-        <NationSelect chooseType={setType} />
+        <TypeSelect chooseType={setType} />
       ) : (
-        <MemoryGame type={type} />
+        <MemoryGame reset={reset} type={type} />
       )}
-      {/* <MemoryGame nation="Mondstat" /> */}
     </>
   );
 }

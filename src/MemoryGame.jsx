@@ -1,11 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Win from "./Win";
+import Card from "./Card";
 
-export default function MemoryGame({ type }) {
+export default function MemoryGame({ reset, type }) {
   const [pokemon, setPokemon] = useState([]);
-  const maxPokemon = 10;
+  const [current, setCurrent] = useState(0);
+  const [best, setBest] = useState(0);
+  const [selected, setSelected] = useState([]);
+  const get = useRef(true);
 
-  useEffect(() => {
+  const maxPokemon = 1;
+
+  if (get.current) {
     const getPokemon = async () => {
       const data = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
       const pkmnOfTypeData = (await data.json()).pokemon;
@@ -31,23 +38,66 @@ export default function MemoryGame({ type }) {
       setPokemon(selectedPokemon);
     };
     getPokemon();
-  }, []);
+    get.current = false;
+  }
+
+  useEffect(() => {
+    // randomize items in array
+    const shuffleArray = (arr) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      setPokemon(arr);
+    };
+    const array = [...pokemon];
+    shuffleArray(array);
+    setPokemon(array);
+  }, [current]);
+
+  const resetGet = () => {
+    get.current = true;
+  };
 
   return (
     <>
-      <div
-        className={`loading-spinner ${pokemon.length > 0 ? "hide" : ""}`}
-      ></div>
+      {pokemon.length > 0 ? (
+        <div className="score-container">
+          <p className="current-score">Current Score: {current}</p>
+          <p className="best-score">Best Score: {best}</p>
+        </div>
+      ) : (
+        <div className="loading-spinner"></div>
+      )}
+
+      {current === maxPokemon ? (
+        <Win
+          reset={reset}
+          resetGet={resetGet}
+          setCurrent={setCurrent}
+          setBest={setBest}
+          setSelected={setSelected}
+        />
+      ) : null}
+
       <div className="card-container">
         {pokemon.map((poke) => {
           return (
-            <div key={poke.name} className="card">
-              <img src={poke.imgUrl} alt={`${poke.name}`} />
-              <p>{poke.name}</p>
-            </div>
+            <Card
+              key={poke.name}
+              name={poke.name}
+              url={poke.imgUrl}
+              current={current}
+              setCurrent={setCurrent}
+              best={best}
+              setBest={setBest}
+              selected={selected}
+              setSelected={setSelected}
+            />
           );
         })}
-        {console.log("fuck")}
       </div>
     </>
   );
