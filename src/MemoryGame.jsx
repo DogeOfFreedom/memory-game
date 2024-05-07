@@ -10,7 +10,11 @@ export default function MemoryGame({ reset, type }) {
   const [selected, setSelected] = useState([]);
   const get = useRef(true);
 
+<<<<<<< HEAD
   const maxPokemon = 3;
+=======
+  const maxPokemon = 1;
+>>>>>>> 9dbb1902950b215b1c72209a4f7609046a2967d6
 
   if (get.current) {
     const getPokemon = async () => {
